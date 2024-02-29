@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\GenreRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GenreRepository;
+use Doctrine\Common\Collections\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
+#[UniqueEntity(fields: ["libelle"], message: "Le genre {{ value }} existe déjà")]
 class Genre
 {
     #[ORM\Id]
@@ -20,10 +23,11 @@ class Genre
 
     #[ORM\Column(length: 255)]
     #[Groups(['listeGenreSimple'])]
+    #[Assert\Length( min:2, max:32, minMessage:"Le libelle saisi doit comporter au moins {{ limit }} caractères", maxMessage:"Le libelle saisi ne doit pas dépasser {{ limit }} caractères")]
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'genre', targetEntity: Livre::class)]
-    #[Groups(['listeGenreSimple'])]
+    // #[Groups(['listeGenreSimple'])]
     private Collection $livres;
 
     public function __construct()
