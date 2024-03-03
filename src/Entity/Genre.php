@@ -26,7 +26,7 @@ class Genre
     #[Assert\Length( min:2, max:32, minMessage:"Le libelle saisi doit comporter au moins {{ limit }} caractères", maxMessage:"Le libelle saisi ne doit pas dépasser {{ limit }} caractères")]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'genre', targetEntity: Livre::class)]
+    #[ORM\OneToMany(mappedBy: 'genre', targetEntity: Livre::class, orphanRemoval: false)]
     // #[Groups(['listeGenreSimple'])]
     private Collection $livres;
 

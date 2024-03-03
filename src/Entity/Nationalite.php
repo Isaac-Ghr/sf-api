@@ -7,18 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: NationaliteRepository::class)]
+#[UniqueEntity(fields: ["libelle"], message: "La nationalité {{ value }} existe déjà")]
 class Nationalite
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['NL','NS','AS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['NL','NS','AS'])]
+    #[Assert\Length(min: 4, max: 50, minMessage: "Le nom de la nationalité doit comporter au moins {{ limit }} caractères", maxMessage: "Le nom de la nationalité doit comporter moins de {{ limit }} caractères")]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Auteur::class)]
+    #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Auteur::class, orphanRemoval: false)]
+    #[Groups(['NL','NS'])]
     private Collection $auteurs;
 
     public function __construct()

@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Entity\Genre;
 use App\Repository\GenreRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -24,11 +25,10 @@ class ApiGenreController extends AbstractController
         $resultat=$ser->serialize(
             $genres,
             'json',
-            [
-                'groups'=>['listeGenreSimple']
-            ]
+            ['groups'=>[
+                'listeGenreSimple'
+            ]]
         );
-        // dd($resultat);
 
         return new JsonResponse($resultat, 200, [], true);
     }
@@ -111,7 +111,7 @@ class ApiGenreController extends AbstractController
 
         return new JsonResponse(
             "genre supprimé",
-            Response::HTTP_OK, [],
+            Response::HTTP_OK, []
         );
     }
 }

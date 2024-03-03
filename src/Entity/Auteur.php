@@ -7,25 +7,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: AuteurRepository::class)]
 class Auteur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['AS', 'AL'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['AS', 'AL'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['AS', 'AL'])]
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'auteurs')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['AS'])]
     private ?Nationalite $nationalite = null;
 
-    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class)]
+    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class, orphanRemoval: false)]
+    #[Groups(['AS'])]
     private Collection $livres;
 
     public function __construct()

@@ -7,18 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: EditeurRepository::class)]
+#[UniqueEntity(fields: ["nom"], message: "L'editeur {{ value }} existe déjà")]
 class Editeur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['EL','ES','NS','AS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['EL','ES','NS','AS'])]
+    #[Assert\Length(min: 4, max: 50, minMessage: "Le nom de l'éditeur doit comporter au moins {{ limit }} caractères", maxMessage: "Le nom de l'éditeur doit comporter moins de {{ limit }} caractères")]
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'editeur', targetEntity: Livre::class)]
+    #[Groups(['ES','NS','AS'])]
     private Collection $livres;
 
     public function __construct()

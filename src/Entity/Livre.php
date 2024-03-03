@@ -15,31 +15,34 @@ class Livre
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['listeGenreSimple'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['listeGenreSimple'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?string $isbn = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['listeGenreSimple'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?string $titre = null;
 
     #[ORM\Column]
-    #[Groups(['listeGenreSimple'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?float $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['NL'])]
     private ?Auteur $auteur = null;
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['AS'])]
     private ?Editeur $editeur = null;
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['AS'])]
     private ?Genre $genre = null;
 
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Pret::class)]
