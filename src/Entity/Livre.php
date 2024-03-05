@@ -21,6 +21,7 @@ class Livre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(pattern: "/((\d{1}-)((\d|-){9})|(97[89]-)((\d|-){11}))(-[X0-9]){1}/", message: "Cet ISBN n'est pas valide")]
     #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?string $isbn = null;
 
@@ -29,6 +30,7 @@ class Livre
     private ?string $titre = null;
 
     #[ORM\Column]
+    #[Assert\Range(min: 5, max: 400, notInRangeMessage: "Le prix doit être compris entre {{ min }} et {{ max }} euros")]
     #[Groups(['listeGenreSimple', 'AS', 'NL'])]
     private ?float $prix = null;
 
@@ -51,9 +53,13 @@ class Livre
     private Collection $prets;
 
     #[ORM\Column]
+    #[Assert\Regex(pattern: "/1[0-9]{3}/", message: "Cet ISBN n'est pas valide")]
+    // #[Assert\Expression(expression: "value < ")]
+    #[Groups(['AS'])]
     private ?int $annee = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['AS'])]
     private ?string $langue = null;
 
     public function __construct()
