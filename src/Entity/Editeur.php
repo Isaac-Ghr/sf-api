@@ -18,11 +18,11 @@ class Editeur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['EL','ES','NS','AS'])]
+    #[Groups(['EL','ES','NS','AS','LS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['EL','ES','NS','AS'])]
+    #[Groups(['EL','ES','NS','AS','LS'])]
     #[Assert\Length(min: 4, max: 50, minMessage: "Le nom de l'éditeur doit comporter au moins {{ limit }} caractères", maxMessage: "Le nom de l'éditeur doit comporter moins de {{ limit }} caractères")]
     private ?string $nom = null;
 

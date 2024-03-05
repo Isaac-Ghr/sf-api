@@ -18,11 +18,11 @@ class Nationalite
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['NL','NS','AS'])]
+    #[Groups(['NL','NS','AS','LS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['NL','NS','AS'])]
+    #[Groups(['NL','NS','AS','LS'])]
     #[Assert\Length(min: 4, max: 50, minMessage: "Le nom de la nationalité doit comporter au moins {{ limit }} caractères", maxMessage: "Le nom de la nationalité doit comporter moins de {{ limit }} caractères")]
     private ?string $libelle = null;
 

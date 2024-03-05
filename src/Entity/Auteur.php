@@ -17,20 +17,20 @@ class Auteur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['AS','AL','NS'])]
+    #[Groups(['AS','AL','NS','LS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['AS','AL','ES','NS'])]
+    #[Groups(['AS','AL','ES','NS','LS'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['AS','AL','ES','NS'])]
+    #[Groups(['AS','AL','ES','NS','LS'])]
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'auteurs')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['AS', 'ES'])]
+    #[Groups(['AS','ES','LS'])]
     private ?Nationalite $nationalite = null;
 
     #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class, orphanRemoval: false)]

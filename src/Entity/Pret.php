@@ -6,21 +6,29 @@ use App\Repository\PretRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+// use Symfony\Component\Validator\Constraints as Assert;
+// use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: PretRepository::class)]
 class Pret
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['LS'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['LS'])]
     private ?\DateTimeInterface $datePret = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['LS'])]
     private ?\DateTimeInterface $dateRetourPrevue = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['LS'])]
     private ?\DateTimeInterface $dateRetourReelle = null;
 
     #[ORM\ManyToOne(inversedBy: 'prets')]

@@ -18,11 +18,11 @@ class Genre
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['listeGenreSimple','ES','NS'])]
+    #[Groups(['listeGenreSimple','ES','NS','LS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['listeGenreSimple','ES','NS'])]
+    #[Groups(['listeGenreSimple','ES','NS','LS'])]
     #[Assert\Length( min:2, max:32, minMessage:"Le libelle saisi doit comporter au moins {{ limit }} caractères", maxMessage:"Le libelle saisi ne doit pas dépasser {{ limit }} caractères")]
     private ?string $libelle = null;
 
