@@ -27,7 +27,7 @@ class Nationalite
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'nationalite', targetEntity: Auteur::class, orphanRemoval: false)]
-    #[Groups(['NL','NS'])]
+    #[Groups(['NS'])]
     private Collection $auteurs;
 
     public function __construct()

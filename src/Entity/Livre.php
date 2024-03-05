@@ -17,26 +17,26 @@ class Livre
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['listeGenreSimple', 'AS', 'NL'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NS'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Regex(pattern: "/((\d{1}-)((\d|-){9})|(97[89]-)((\d|-){11}))(-[X0-9]){1}/", message: "Cet ISBN n'est pas valide")]
-    #[Groups(['listeGenreSimple', 'AS', 'NL', 'ES'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NS', 'ES'])]
     private ?string $isbn = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['listeGenreSimple', 'AS', 'NL', 'ES'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NS', 'ES'])]
     private ?string $titre = null;
 
     #[ORM\Column]
     #[Assert\Range(min: 5, max: 400, notInRangeMessage: "Le prix doit être compris entre {{ min }} et {{ max }} euros")]
-    #[Groups(['listeGenreSimple', 'AS', 'NL', 'ES'])]
+    #[Groups(['listeGenreSimple', 'AS', 'NS', 'ES'])]
     private ?float $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['NL', 'ES'])]
+    #[Groups(['ES'])]
     private ?Auteur $auteur = null;
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
@@ -46,21 +46,21 @@ class Livre
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['AS', 'ES'])]
+    #[Groups(['AS','ES','NS'])]
     private ?Genre $genre = null;
 
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Pret::class)]
-    #[Groups(['AS'])]
+    #[Groups(['AS','NS'])]
     private Collection $prets;
 
     #[ORM\Column]
     #[Assert\Regex(pattern: "/1[0-9]{3}/", message: "Cet ISBN n'est pas valide")]
     // #[Assert\Expression(expression: "value < ")]
-    #[Groups(['AS', 'ES'])]
+    #[Groups(['AS','ES','NS'])]
     private ?int $annee = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['AS', 'ES'])]
+    #[Groups(['AS','ES','NS'])]
     private ?string $langue = null;
 
     public function __construct()
