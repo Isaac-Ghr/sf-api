@@ -21,16 +21,16 @@ class Auteur
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['AS', 'AL'])]
+    #[Groups(['AS', 'AL', 'ES'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['AS', 'AL'])]
+    #[Groups(['AS', 'AL', 'ES'])]
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'auteurs')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['AS'])]
+    #[Groups(['AS', 'ES'])]
     private ?Nationalite $nationalite = null;
 
     #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Livre::class, orphanRemoval: false)]
